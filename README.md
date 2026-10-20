@@ -1,2 +1,7 @@
-# drag-arad-2026
-Drag Arad 2026 — race results, records and media
+# Drag Arad 2026
+
+Version 29 of the event results and media website.
+
+Published with GitHub Pages. The site entry is `index.html`; retain the `assets/` folder beside it.
+
+Updates replace the site files in this same repository, keeping the published address unchanged. Previous versions remain in Git history.
