@@ -2088,7 +2088,9 @@ body .md-workshop-label {
 <style id="mobile-audio-fix">
 @media(max-width:650px),(max-width:850px) and (pointer:coarse){
  body>.audio-settings[data-mobile-audio]{position:fixed;inset:auto;right:calc(max(20px,env(safe-area-inset-right)) + 60px);bottom:max(20px,env(safe-area-inset-bottom));z-index:160;margin:0;color:#e0ff9a}
- body>.audio-settings[data-mobile-audio]>summary{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 14px;border:1px solid #d6ff4199;border-radius:24px;background:#10241d;color:#e0ff9a;font-size:14px;line-height:1.4;list-style:none;box-shadow:0 8px 26px #0006}
+ body>.audio-settings[data-mobile-audio]>summary{display:flex;align-items:center;justify-content:center;gap:0;width:48px;min-width:48px;min-height:48px;padding:0;border:1px solid #d6ff4199;border-radius:50%;background:#10241d;color:#e0ff9a;font-size:14px;line-height:1.4;list-style:none;box-shadow:0 8px 26px #0006}
+ body>.audio-settings[data-mobile-audio]>summary .race-ui-icon{inline-size:23px;block-size:23px;min-inline-size:23px;flex:0 0 23px;margin:0;color:inherit}
+ body>.audio-settings[data-mobile-audio]>summary .mobile-audio-label{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
  body>.audio-settings[data-mobile-audio]>summary::marker{content:''}
  body>.audio-settings[data-mobile-audio]>summary::-webkit-details-marker{display:none}
  body>.audio-settings[data-mobile-audio]>summary:focus-visible{outline:3px solid #edffc5;outline-offset:4px}
@@ -3476,6 +3478,8 @@ function bindRunControls(){
 </script><script id="mobile-audio-fix-script">
 (() => {
  const settings=document.querySelector('.audio-settings');
+ const summary=settings.querySelector('summary');summary.title='מיקס סאונד';
+ for(const node of [...summary.childNodes])if(node.nodeType===3&&node.textContent.trim()){const label=document.createElement('span');label.className='mobile-audio-label';node.before(label);label.append(node)}
  const home=document.createComment('audio-settings-home');settings.before(home);
  const phone=matchMedia('(max-width:650px), (max-width:850px) and (pointer:coarse)');
  function placeMixer(){
