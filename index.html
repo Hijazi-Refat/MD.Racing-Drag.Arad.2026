@@ -3501,7 +3501,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     button.classList.toggle('floating-sound-control', Boolean(dialog));
     if (button.parentElement !== host) host.append(button);
     const analytics = document.body.classList.contains('analytics-open');
-    floating.hidden = Boolean(dialog) || analytics || (window.scrollY <= 200 && !matchMedia('(max-width:650px), (max-width:850px) and (pointer:coarse)').matches);
+    const homeRect = homeSlot.getBoundingClientRect();
+    const homeVisible = homeRect.top >= 0 && homeRect.bottom <= window.innerHeight && homeRect.left >= 0 && homeRect.right <= window.innerWidth;
+    floating.hidden = Boolean(dialog) || analytics || (window.scrollY <= 200 && homeVisible && !matchMedia('(max-width:650px), (max-width:850px) and (pointer:coarse)').matches);
     if (floating.hidden && document.activeElement === floating && !dialog && !analytics) {
       button.focus({preventScroll: true});
     }
@@ -3525,6 +3527,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   new MutationObserver(placeButton).observe(document.body, {attributes: true, attributeFilter: ['class']});
   window.addEventListener('scroll', placeButton, {passive: true});
   window.addEventListener('resize', placeButton);
+  if ('IntersectionObserver' in window) new IntersectionObserver(placeButton, {threshold: [0, 1]}).observe(homeSlot);
   syncFloating();
   placeButton();
 })();
